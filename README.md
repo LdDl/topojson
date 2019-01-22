@@ -14,7 +14,7 @@ https://github.com/mbostock/topojson
 
 ## About fork
 
-I've added new fields into TopologyOptions for my needs, which you can find useful
+I've added new fields into [TopologyOptions](https://github.com/LdDl/topojson/blob/master/topology.go#L50) for my needs, which you can find useful
 
 ## Installation
 ```
