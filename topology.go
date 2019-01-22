@@ -3,7 +3,7 @@ package topojson
 import (
 	"encoding/json"
 
-	"github.com/paulmach/go.geojson"
+	geojson "github.com/paulmach/go.geojson"
 )
 
 type Topology struct {
@@ -44,6 +44,13 @@ type TopologyOptions struct {
 
 	// ID property key
 	IDProperty string
+
+	// We can use composite key to evade same IDs overlap each other
+	// Be sure that your's composite key is primitive types and actually exists in GeoJSON's properties
+	CompositeKeyParams []string
+
+	// Do you want to remove empty?
+	RemoveEmpty bool
 }
 
 func NewTopology(fc *geojson.FeatureCollection, opts *TopologyOptions) *Topology {
@@ -71,7 +78,9 @@ func NewTopology(fc *geojson.FeatureCollection, opts *TopologyOptions) *Topology
 	topo.unpackArcs()
 	topo.simplify()
 	topo.unpackObjects()
-	topo.removeEmpty()
+	if opts.RemoveEmpty {
+		topo.removeEmpty()
+	}
 	topo.postQuantize()
 	topo.delta()
 

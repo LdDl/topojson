@@ -1,6 +1,6 @@
 # topojson - TopoJSON implementation in Go
 
-[![Build Status](https://travis-ci.org/rubenv/topojson.svg?branch=master)](https://travis-ci.org/rubenv/topojson) [![GoDoc](https://godoc.org/github.com/rubenv/topojson?status.png)](https://godoc.org/github.com/rubenv/topojson)
+[![GoDoc](https://godoc.org/github.com/rubenv/topojson?status.png)](https://godoc.org/github.com/LdDl/topojson)
 
 Implements the TopoJSON specification:
 https://github.com/mbostock/topojson-specification
@@ -20,7 +20,7 @@ go get github.com/rubenv/topojson
 Import into your application with:
 
 ```go
-import "github.com/rubenv/topojson"
+import "github.com/LdDl/topojson"
 ```
 
 ## Usage

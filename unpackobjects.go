@@ -1,7 +1,10 @@
 package topojson
 
 import (
-	"github.com/paulmach/go.geojson"
+	"fmt"
+	"strings"
+
+	geojson "github.com/paulmach/go.geojson"
 )
 
 type arcEntry struct {
@@ -12,7 +15,21 @@ type arcEntry struct {
 func (t *Topology) unpackObjects() {
 	for _, o := range t.objects {
 		obj := t.unpackObject(o)
-		t.Objects[obj.ID] = obj
+		if len(t.opts.CompositeKeyParams) == 0 {
+			t.Objects[obj.ID] = obj
+		} else {
+			// We can use composite key to evade same IDs overlap each other
+			// Be sure that your's composite key is primitive types and actually exists in GeoJSON's properties
+			okeys := make([]string, len(t.opts.CompositeKeyParams))
+			for i := range t.opts.CompositeKeyParams {
+				if found, ok := obj.Properties[t.opts.CompositeKeyParams[i]]; !ok {
+					continue
+				} else {
+					okeys[i] = fmt.Sprintf("%v", found)
+				}
+			}
+			t.Objects[obj.ID+"_"+strings.Join(okeys, "_")] = obj
+		}
 	}
 	t.objects = nil
 	t.deletedArcs = nil

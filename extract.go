@@ -3,17 +3,23 @@ package topojson
 import (
 	"fmt"
 
-	"github.com/paulmach/go.geojson"
+	geojson "github.com/paulmach/go.geojson"
 )
 
 func (t *Topology) extract() {
 	t.objects = make([]*topologyObject, 0, len(t.input))
-
-	for i, g := range t.input {
+	for _, g := range t.input {
 		feature := t.extractFeature(g)
 		if len(feature.ID) == 0 {
 			// if multiple features exist without ids only one will be retained, so provide a synthetic id
-			feature.ID = fmt.Sprintf("feature_%d", i)
+			switch g.ID.(type) {
+			case float64, float32:
+				// feature.ID = fmt.Sprintf("feature_%.0f", g.ID)
+				feature.ID = fmt.Sprintf("%.0f", g.ID)
+			default:
+				// feature.ID = fmt.Sprintf("feature_%v", g.ID)
+				feature.ID = fmt.Sprintf("%v", g.ID)
+			}
 		}
 		t.objects = append(t.objects, feature)
 	}
