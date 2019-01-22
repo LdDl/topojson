@@ -1,4 +1,4 @@
-# topojson - TopoJSON implementation in Go
+# THIS IS FORK: topojson - TopoJSON implementation in Go
 
 [![GoDoc](https://godoc.org/github.com/rubenv/topojson?status.png)](https://godoc.org/github.com/LdDl/topojson)
 
@@ -11,6 +11,10 @@ https://github.com/paulmach/go.geojson
 Large parts are a port of the canonical JavaScript implementation, big chunks
 of the test suite are ported as well:
 https://github.com/mbostock/topojson
+
+## About fork
+
+I've added new fields into TopologyOptions for my needs, which you can find useful
 
 ## Installation
 ```
